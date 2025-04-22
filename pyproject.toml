@@ -1,0 +1,34 @@
+[project]
+name = "breastfeed-django"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Alex",email = "alexander97643@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13,<4.0"
+dependencies = [
+    "django (>=5.2,<6.0)"
+]
+
+[tool.poetry]
+packages = [{include = "breastfeed_django", from = "src"}]
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+taskipy = "^1.14.1"
+
+[tool.taskipy.tasks]
+run = 'poetry run python manage.py runserver'
+# pre_test = 'task lint'
+test = 'python manage.py test' # Through manage.py it'll import the setting of project in os.environ.setdefault
+make = 'python manage.py makemigrations'
+migrate = 'python manage.py migrate'
+# post_test = 'coverage html'
+# lint = 'ruff check . && ruff check . --diff'
+# format = 'ruff check . --fix && ruff format .'
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
