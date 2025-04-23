@@ -18,6 +18,7 @@ packages = [{include = "breastfeed_django", from = "src"}]
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.5"
 taskipy = "^1.14.1"
+pillow = "^11.2.1"
 
 [tool.taskipy.tasks]
 run = 'poetry run python manage.py runserver'
