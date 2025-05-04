@@ -4,4 +4,4 @@
 
 ## Amamentação-Django
 
-### Este foi um projeto de faculdade feito primeiramente em HTML, CSS, Javascript e php, que agora está será feito em Django
+### Este foi um projeto de faculdade feito primeiramente em HTML, CSS, Javascript e php, que agora será feito em Django
