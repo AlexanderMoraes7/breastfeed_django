@@ -1,0 +1,41 @@
+{% block content %}
+{% load i18n static %}
+
+<html lang='en-us'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css'>
+    <link rel='stylesheet' href="{% static 'accounts.css' %}">
+    <title> {% translate 'Create account' %} </title>
+</head>
+<body>
+    <form method='POST' enctype='multipart/form-data'>
+        {% csrf_token %}
+        <div class='form-group'>
+            {{ accounts_form.username.errors}}
+            <label>{% translate 'User'%}</label>
+            {{ accounts_form.username }}
+        </div>
+        <div class='form-group'>
+            {{ accounts_form.email.errors}}
+            <label for="{{ accounts_form.email.id_for_label }}">{% translate 'Email' %}</label>
+            {{ accounts_form.email }}
+        </div>
+        <div class='form-group'>
+            {{ accounts_form.password1.errors}}
+            <label for="{{ accounts_form.password1.id_for_label }}">{% translate 'Password' %}</label>
+            {{ accounts_form.password1 }}
+        </div>
+        <div class='form-group'>
+            {{ accounts_form.password2.errors}}
+            <label for="{{ accounts_form.password2.id_for_label }}">{% translate 'Confirm password' %}</label>
+            {{ accounts_form.password2 }}
+        </div>
+        <div class='Button'>
+            <a href="{% url 'login' %}"><button type='button'>{% translate 'Back' %}</button></a>
+            <button type='submit'>{% translate 'Create account' %}</button>
+        </div>
+    </form>
+</body>
+{% endblock %}

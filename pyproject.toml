@@ -11,24 +11,37 @@ dependencies = [
     "django (>=5.2,<6.0)"
 ]
 
-[tool.poetry]
-packages = [{include = "breastfeed_django", from = "src"}]
-
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.5"
 taskipy = "^1.14.1"
 pillow = "^11.2.1"
+python-decouple = "^3.8"
+dj-database-url = "^2.3.0"
+
+
+[tool.poetry]
+packages = [{include = "breastfeed_django", from = "src"}]
+
 
 [tool.taskipy.tasks]
-run = 'poetry run python manage.py runserver'
-# pre_test = 'task lint'
-test = 'python manage.py test' # Through manage.py it'll import the setting of project in os.environ.setdefault
-make = 'python manage.py makemigrations'
-migrate = 'python manage.py migrate'
-# post_test = 'coverage html'
-# lint = 'ruff check . && ruff check . --diff'
-# format = 'ruff check . --fix && ruff format .'
+run = 'poetry run python manage.py runserver' # Through manage.py it'll import the setting of project in os.environ.setdefault
+
+# When you want to use more than one command in taskipy
+[tool.taskipy.tasks.makemigrate]                        # This is the command
+    cmd = 'task make && task migrate'
+[tool.taskipy.tasks.make]
+    cmd = 'python manage.py makemigrations'
+[tool.taskipy.tasks.migrate]
+    cmd = 'python manage.py migrate'
+
+[tool.taskipy.tasks.messages]                           # This is the command
+    cmd = 'task makemessages && task compilemessages'
+[tool.taskipy.tasks.makemessages]
+    cmd = 'python manage.py makemessages -l pt_BR'
+[tool.taskipy.tasks.compilemessages]
+    cmd = 'python manage.py compilemessages'
+
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

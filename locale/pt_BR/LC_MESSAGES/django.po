@@ -1,0 +1,107 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR alexander97643@gmail.com, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-03 12:08-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\app\settings.py:115
+msgid "English"
+msgstr "Inglês"
+
+#: .\app\settings.py:116
+msgid "Brazilian Portuguese"
+msgstr "Brasil Português"
+
+#: .\app\templates\base.html:12 .\login\templates\login.html:31
+msgid "Breastfeeding Support"
+msgstr "Apoio á Amamentação"
+
+#: .\app\templates\base.html:27
+msgid "Information"
+msgstr "Informações"
+
+#: .\app\templates\base.html:30
+msgid "Be a donor"
+msgstr "Seja doador(a)"
+
+#: .\app\templates\base.html:33
+msgid "Home"
+msgstr "Home"
+
+#: .\app\templates\base.html:36
+msgid "Breast milk donation units"
+msgstr "Unidades de doação de leite materno"
+
+#: .\app\templates\base.html:39
+msgid "User profile"
+msgstr "Perfil do Usuário"
+
+#: .\login\templates\accounts.html:10 .\login\templates\accounts.html:37
+msgid "Create account"
+msgstr "Criar conta"
+
+#: .\login\templates\accounts.html:17
+msgid "User"
+msgstr "Usuário"
+
+#: .\login\templates\accounts.html:22
+msgid "Email"
+msgstr "Email"
+
+#: .\login\templates\accounts.html:27
+msgid "Password"
+msgstr "Senha"
+
+#: .\login\templates\accounts.html:32
+msgid "Confirm password"
+msgstr "Confirme sua senha"
+
+#: .\login\templates\accounts.html:36
+msgid "Back"
+msgstr "Voltar"
+
+#: .\login\templates\login.html:20
+msgid "Change language"
+msgstr "Mudar idioma"
+
+#: .\login\templates\login.html:35
+msgid "Woman breastfeeding her baby"
+msgstr "Mulher alimentando seu bebê"
+
+#: .\login\templates\login.html:51
+msgid "Enter your user"
+msgstr "Digite seu Usuário"
+
+#: .\login\templates\login.html:64
+msgid "Enter your password"
+msgstr "Digite sua senha"
+
+#: .\login\templates\login.html:70
+msgid "Login"
+msgstr "Entrar"
+
+#: .\login\templates\login.html:82
+msgid "Forgot your password?"
+msgstr "Esqueceu sua senha?"
+
+#: .\login\templates\login.html:87
+msgid "Have account?"
+msgstr "Criar conta"
+
+#: .\login\templates\login.html:88
+msgid "Create here"
+msgstr "Crie aqui"

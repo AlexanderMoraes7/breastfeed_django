@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from django.utils.translation import gettext_noop
+from decouple import config
+import dj_database_url
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,7 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#*0@ouwja&#8j#7n&^b%1*76n7ts0i=#l5$suq^w_zxlr0vuuu'
+# This config will seach in a .env file on root
+# Esse config buscará em um arquivo .env na raiz
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'login',
+    'app',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -57,7 +63,9 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'app' / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,11 +84,19 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default' : dj_database_url.config(
+        default=config('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=False
+    )
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -108,103 +124,15 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-US'
 
 LANGUAGES = [
-    ('af', gettext_noop('Afrikaans')),
-    ('ar', gettext_noop('Arabic')),
-    ('ar-dz', gettext_noop('Algerian Arabic')),
-    ('ast', gettext_noop('Asturian')),
-    ('az', gettext_noop('Azerbaijani')),
-    ('bg', gettext_noop('Bulgarian')),
-    ('be', gettext_noop('Belarusian')),
-    ('bn', gettext_noop('Bengali')),
-    ('br', gettext_noop('Breton')),
-    ('bs', gettext_noop('Bosnian')),
-    ('ca', gettext_noop('Catalan')),
-    ('cs', gettext_noop('Czech')),
-    ('cy', gettext_noop('Welsh')),
-    ('da', gettext_noop('Danish')),
-    ('de', gettext_noop('German')),
-    ('dsb', gettext_noop('Lower Sorbian')),
-    ('el', gettext_noop('Greek')),
-    ('en', gettext_noop('English')),
-    ('en-au', gettext_noop('Australian English')),
-    ('en-gb', gettext_noop('British English')),
-    ('eo', gettext_noop('Esperanto')),
-    ('es', gettext_noop('Spanish')),
-    ('es-ar', gettext_noop('Argentinian Spanish')),
-    ('es-co', gettext_noop('Colombian Spanish')),
-    ('es-mx', gettext_noop('Mexican Spanish')),
-    ('es-ni', gettext_noop('Nicaraguan Spanish')),
-    ('es-ve', gettext_noop('Venezuelan Spanish')),
-    ('et', gettext_noop('Estonian')),
-    ('eu', gettext_noop('Basque')),
-    ('fa', gettext_noop('Persian')),
-    ('fi', gettext_noop('Finnish')),
-    ('fr', gettext_noop('French')),
-    ('fy', gettext_noop('Frisian')),
-    ('ga', gettext_noop('Irish')),
-    ('gd', gettext_noop('Scottish Gaelic')),
-    ('gl', gettext_noop('Galician')),
-    ('he', gettext_noop('Hebrew')),
-    ('hi', gettext_noop('Hindi')),
-    ('hr', gettext_noop('Croatian')),
-    ('hsb', gettext_noop('Upper Sorbian')),
-    ('hu', gettext_noop('Hungarian')),
-    ('hy', gettext_noop('Armenian')),
-    ('ia', gettext_noop('Interlingua')),
-    ('id', gettext_noop('Indonesian')),
-    ('io', gettext_noop('Ido')),
-    ('is', gettext_noop('Icelandic')),
-    ('it', gettext_noop('Italian')),
-    ('ja', gettext_noop('Japanese')),
-    ('ka', gettext_noop('Georgian')),
-    ('kab', gettext_noop('Kabyle')),
-    ('kk', gettext_noop('Kazakh')),
-    ('km', gettext_noop('Khmer')),
-    ('kn', gettext_noop('Kannada')),
-    ('ko', gettext_noop('Korean')),
-    ('lb', gettext_noop('Luxembourgish')),
-    ('lt', gettext_noop('Lithuanian')),
-    ('lv', gettext_noop('Latvian')),
-    ('mk', gettext_noop('Macedonian')),
-    ('ml', gettext_noop('Malayalam')),
-    ('mn', gettext_noop('Mongolian')),
-    ('mr', gettext_noop('Marathi')),
-    ('my', gettext_noop('Burmese')),
-    ('nb', gettext_noop('Norwegian Bokmål')),
-    ('ne', gettext_noop('Nepali')),
-    ('nl', gettext_noop('Dutch')),
-    ('nn', gettext_noop('Norwegian Nynorsk')),
-    ('os', gettext_noop('Ossetic')),
-    ('pa', gettext_noop('Punjabi')),
-    ('pl', gettext_noop('Polish')),
-    ('pt', gettext_noop('Portuguese')),
+    ('en-us', gettext_noop('English')),
     ('pt-br', gettext_noop('Brazilian Portuguese')),
-    ('ro', gettext_noop('Romanian')),
-    ('ru', gettext_noop('Russian')),
-    ('sk', gettext_noop('Slovak')),
-    ('sl', gettext_noop('Slovenian')),
-    ('sq', gettext_noop('Albanian')),
-    ('sr', gettext_noop('Serbian')),
-    ('sr-latn', gettext_noop('Serbian Latin')),
-    ('sv', gettext_noop('Swedish')),
-    ('sw', gettext_noop('Swahili')),
-    ('ta', gettext_noop('Tamil')),
-    ('te', gettext_noop('Telugu')),
-    ('th', gettext_noop('Thai')),
-    ('tr', gettext_noop('Turkish')),
-    ('tt', gettext_noop('Tatar')),
-    ('udm', gettext_noop('Udmurt')),
-    ('uk', gettext_noop('Ukrainian')),
-    ('ur', gettext_noop('Urdu')),
-    ('uz', gettext_noop('Uzbek')),
-    ('vi', gettext_noop('Vietnamese')),
-    ('zh-hans', gettext_noop('Simplified Chinese')),
-    ('zh-hant', gettext_noop('Traditional Chinese')),
 ]
+
+LOCALE_PATHS = [ BASE_DIR / 'locale' ]
 
 TIME_ZONE = 'America/Sao_Paulo'
 
-USE_I18N = True # this is the internationalization
+USE_I18N = True # this is internationalization
 
 USE_TZ = True
 
@@ -219,6 +147,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+    BASE_DIR / 'media']
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

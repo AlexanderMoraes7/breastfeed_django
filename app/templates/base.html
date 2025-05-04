@@ -1,0 +1,44 @@
+{% block content %}
+{% load i18n static %}
+{% load static ensure_overridden %}
+
+<!DOCTYPE html>
+<html lang='us-en'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link rel='stylesheet' href="{% static 'base.css' %}">
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css'>
+        <title> {% translate 'Breastfeeding Support' %}</title>
+    </head>
+    <body>
+        <div class='Top'>
+            <h1>{% block title %}{% ensure_overridden %}{% endblock %}</h1>
+            <button class='Bell'>
+                <img src='../media/system/icons8-bell-30.png' alt={% translate 'Notifications' %}>
+            </button>
+            <a class='Config' href="{% url 'config' %}">
+                <img src='../media/system/icons8-settings-30-margenta-amarelo.png' alt={% translate 'Configurations' %}>
+            </a>
+        </div>
+        <main class="Container"></main>
+        <footer class="Bottom">
+            <a href="{% url 'login' %}">
+                <img src="{% static 'system/icons8-about-64-white.png' %}" alt="{% translate 'Information' %}">
+            </a>
+            <a href="{% url 'login' %}">
+                <img src="{% static 'system/icons8-love-64-white.png' %}" alt="{% translate 'Be a donor' %}">
+            </a>
+            <a href="{% url 'login' %}">
+                <img src="{% static 'system/icons8-home-64-white.png' %}" alt="{% translate 'Home' %}">
+            </a>
+            <a href="{% url 'login' %}">
+                <img src="{% static 'system/icons8-hospital-64-white.png' %}" alt="{% translate 'Breast milk donation units' %}">
+            </a>
+            <a href="{% url 'login' %}">
+                <img src="{% static 'system/icons8-user-64-white.png' %}" alt="{% translate 'User profile' %}">
+            </a>
+        </footer>
+    </body>
+</html>
+{% endblock  %}
