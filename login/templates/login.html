@@ -1,0 +1,109 @@
+{% block content %}
+{% load i18n static %}
+    <div class='form'>
+        <form action='{% url 'set_language' %}' method='post'>
+            {% csrf_token %}
+            <input name='next' type='hidden' value='{{ request.get_full_path }}' />
+            <select name='language'>
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for lang in languages %}
+                    <option value='{{ lang.code }}'
+                    {% if lang.code == LANGUAGE_CODE %} 
+                        selected
+                    {% endif %}>
+                    {{ lang.name_local }} ({{ lang.code }})
+                    </option>
+                {% endfor %}
+            </select>
+            <button type='submit'>{% translate 'Change language' %}</button>
+        </form>
+    </div>
+    
+    <!DOCTYPE html>
+    <html lang='en-us'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link rel='stylesheet' href="{% static 'login.css' %}">
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css'>
+        <title> {% translate 'Breastfeeding Support' %}</title>
+    </head> 
+
+    <body>
+        <img src="{% static 'system\mother_with_son.jpg' %}" alt={% translate 'Woman breastfeeding her baby' %}>
+        <div class='Box'>
+
+            <form method='POST' enctype='multipart/form-data'>
+                {% csrf_token %}
+
+                <div class='input floating'>
+                    {{ login_form.username.errors }}
+                    <input type="user"
+                    name="{{ login_form.username.html_name }}"
+                    id="{{ login_form.username.id_for_label }}"
+                    placeholder=' '
+                    autocomplete='username'
+                    autofocus
+                    required/>
+                    <label for="{{ login_form.username.id_for_label }}">
+                        {% translate 'Enter your user' %}
+                    </label>
+                </div>
+
+                <div class='input floating'>
+                    {{ login_form.password.errors }}
+                    <input type="password"
+                    name="{{ login_form.password.html_name }}"
+                    id="{{ login_form.password.id_for_label }}"
+                    placeholder=' '
+                    autocomplete='current-password'
+                    required/>
+                    <label for="{{ login_form.password.id_for_label }}">
+                        {% translate 'Enter your password' %}
+                    </label>
+                    <i class='fa-solid fa-eye-slash eye' class='eye' id='eye' onclick='show_password()'></i>
+                </div>
+                
+                {% if login_form.non_field_errors %}
+                    <ul class="errorlist nonfield">
+                        {% for err in login_form.non_field_errors %}
+                            <li>{{ err }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                
+                <div class='Login'>
+                    <button type='submit' name='Login' value='Login'>{% translate 'Login' %}</button>
+                </div>
+            </form>
+
+            <div class='Text1'>
+                    <a href="{% url 'account_recovery' %}">{% translate 'Forgot your password?' %}</a>
+            </div>
+
+            <div class='Text2'>
+                <label>{% translate 'Have account?' %}</label>
+                <a href="{% url 'accounts' %}">{% translate 'Create here' %}</a>
+            </div>
+
+            <script>
+                function show_password(){
+                    var name = document.getElementById("{{ login_form.password.id_for_label }}");
+                    if(name.type == 'password'){
+                        name.type = 'text'
+                        var eye = document.getElementById('eye');
+                        eye.className = 'fa-solid fa-eye';
+                    } else {
+                        name.type = 'password'
+                        var eye = document.getElementById('eye');
+                        eye.className = 'fa-solid fa-eye-slash';
+                    }
+                }
+            </script>
+        </div>
+    </body> 
+</html>
+
+{% endblock  %} 
