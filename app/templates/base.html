@@ -1,4 +1,3 @@
-{% block content %}
 {% load i18n static %}
 {% load static ensure_overridden %}
 
@@ -7,7 +6,7 @@
     <head>
         <meta charset='UTF-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <link rel='stylesheet' href="{% static 'base.css' %}">
+        <link rel='stylesheet' href="{% static 'css\base.css' %}">
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css'>
         <title> {% translate 'Breastfeeding Support' %}</title>
     </head>
@@ -15,13 +14,15 @@
         <div class='Top'>
             <h1>{% block title %}{% ensure_overridden %}{% endblock %}</h1>
             <button class='Bell'>
-                <img src='../media/system/icons8-bell-30.png' alt={% translate 'Notifications' %}>
+                <img src="{% static 'system/icons8-bell-30.png' %}" alt={% translate 'Notifications' %}>
             </button>
-            <a class='Config' href="{% url 'config' %}">
-                <img src='../media/system/icons8-settings-30-margenta-amarelo.png' alt={% translate 'Configurations' %}>
+            <a class='Config' href="{% url 'login' %}">
+                <img src="{% static 'system/icons8-settings-30.png' %}" alt={% translate 'Configurations' %}>
             </a>
         </div>
-        <main class="Container"></main>
+        <main class="Container">
+            {% block content %}{% endblock  %}
+        </main>
         <footer class="Bottom">
             <a href="{% url 'login' %}">
                 <img src="{% static 'system/icons8-about-64-white.png' %}" alt="{% translate 'Information' %}">
@@ -41,4 +42,3 @@
         </footer>
     </body>
 </html>
-{% endblock  %}

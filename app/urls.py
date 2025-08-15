@@ -18,14 +18,19 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from login.views import login_view, accounts_view, logout_view, account_recovery
+from login.views import login_view, logout_view
+from accounts.views import accounts_view
+from account_recovery.views import account_recovery_view
+from feed.views import feed_view
 from django.urls import include, path
 
 urlpatterns = [
+    path('i18n/', include('django.conf.urls.i18n')),  # it allows set_language
+    path('', login_view, name='login'),
     path('admin/', admin.site.urls),
     path('logout/', logout_view, name='logout'),
     path('login/', login_view, name='login'),
     path('accounts/', accounts_view, name='accounts'),
-    path('account_recovery/', account_recovery, name='account_recovery'),
-    path('i18n/', include('django.conf.urls.i18n')),  # it allows set_language
+    path('account_recovery/', account_recovery_view, name='account_recovery'),
+    path('feed/', feed_view, name='feed'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
